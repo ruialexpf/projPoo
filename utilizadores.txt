@@ -1,0 +1,4 @@
+s,2024208902,cartao,engenharia informatica,polo II
+l,1978990112,multibanco,15,FCTUC/FLUC
+n,1993221234,cartao,3,cantina
+s,2022870014,multibanco,historia,polo I

@@ -1,0 +1,153 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam groupInheritance 2
+
+class MobilityService{
+  +main()
+  -addRentals(rentals : ArrayList<Rental>, users : ArrayList<User>, vehicles : ArrayList<Vehicle>): void
+  -askForStr(prompt : String, scanner : Scanner): String
+  -listRentals(rentals : ArrayList<Rental>): void
+  -readUsers(path : String, dest : ArrayList<User>): void
+  -readVehicles(path : String, dest : ArrayList<Vehicle>): void
+  -readRentals(path : String, dest : ArrayList<Rental>): void
+  -writeRentals(path : String, src : ArrayList<User>): void
+}
+
+class Rental{
+  -user : User
+  -vehicle : Vehicle
+  -startDate : String
+  -startHour : int
+  -endDate : String
+  -endHour : int
+  -helmet : boolean
+  -light : boolean
+  +Rental(user : User, vehicle : Vehicle, startDate : String, startHour : int, endDate : String, endHour : int, helmet : boolean, light : boolean)
+  -dateToInt(date : String): int[]
+  -rentalDuration(): int
+  +getUser(): User
+  +getVehicle(): Vehicle
+  +getStartDate(): String
+  +getStartHour(): int
+  +getEndDate(): String
+  +getEndHour(): int
+  +isHelmet(): boolean
+  +isLight(): boolean
+  +setUser(user : User): void
+  +setVehicle(vehicle: Vehicle): void
+  +setStartDate(startDate : String): void
+  +setStartHour(startHour : int): void
+  +setEndDate(endDate : String): void
+  +setEndHour(endHour : int): void
+  +setHelmet(helmet : boolean): void
+  +setLight(light : boolean): void
+}
+
+class Vehicle {
+  -identifier : String
+  -location : String
+  +Vehicle(identifier : String, location : String)
+  +getIdentifier(): String
+  +getLocation(): String
+  +setIdentifier(identifier : String): void
+  +setLocation(location : String): void
+  +toString(): String
+}
+
+class Bicycle{
+  -forTwo : boolean
+  +Bicycle(identifier : String, location : String, forTwo : boolean)
+  +isForTwo(): boolean
+  +setForTwo(forTwo : boolean): void
+  +toString(): String
+}
+
+class Electric{
+  -batteryLvl : int
+  +Electric(identifier : String, location : String, batteryLvl : int)
+  +getBatteryLvl(): int
+  +setBatteryLvl(batteryLvl : int): void
+  +toString(): String
+}
+
+class Scooter{
+  -lcdScreen : boolean
+  +Scooter(identifier : String, location : String, batteryLvl : int, lcdScreen : boolean)
+  +isLcdScreen(): boolean
+  +setLcdScreen(lcdScreen : boolean): void
+  +toString(): String
+}
+
+class Ebike{
+  -removableBat : boolean
+  +Ebike(identifier : String, location : String, batteryLvl : int, removableBat : boolean)
+  +isRemovableBat(): boolean
+  +setRemovableBat(lcdScreen : boolean): void
+  +toString(): String
+}
+Vehicle <|-- Bicycle
+Vehicle <|-- Electric
+Electric <|-- Scooter 
+Electric <|-- Ebike
+
+class User{
+  -mechNo : String
+  -payMethod : String
+  +User(mechNo : String, payMethod : String)
+  +getMechNo(): String
+  +getPayMethod(): String
+  +setMechNo(mechNo : String): void
+  +setPayMethod(payMethod : String): void
+  +toString(): String
+}
+
+class Student{
+  -course : String
+  -pole : String
+  +Student(mechNo : String, payMethod : String, course : String, pole : String)
+  +getCourse(): String
+  +getPole(): String
+  +setCourse(course : String): void
+  +setPole(pole : String): void
+  +toString(): String
+}
+
+class Worker{
+  -contractYear : int
+  +Worker(mechNo : String, payMethod : String, contractYear : int)
+  +getContractYear(): int
+  +setContractYear(contractYear : int): void
+  #workerTitle(): String
+  +toString(): String
+}
+
+class Lecturer{
+  -faculties : ArrayList<String>
+  +Lecturer(mechNo : String, payMethod : String, contractYear : int, faculties : String[])
+  +getFaculties(): ArrayList<String>
+  +setFaculties(faculties : String[]): void
+  #workerTitle(): String
+  +toString(): String
+}
+
+class NonLecturer{
+  -service : String
+  +NonLecturer(mechNo : String, payMethod : String, contractYear : int, service : String)
+  +getService(): String
+  +setService(service : String): void
+  #workerTitle(): String
+  +toString(): String
+}
+User <|-- Student
+User <|-- Worker
+Worker <|-- Lecturer
+Worker <|-- NonLecturer
+
+MobilityService "1..*" -down-- "0..*" Rental
+MobilityService "1..*" -- "0..*" User
+MobilityService "1..*" -- "0..*" Vehicle
+
+Rental "1" -- "0..*" User
+Rental "1" -- "0..*" Vehicle
+
+@enduml

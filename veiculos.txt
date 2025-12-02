@@ -1,0 +1,6 @@
+b,1234,D. Pedro de Cristo,false
+t,5678,Mendes Silva,75,false
+e,9000,Miguel Bombarda,32,false
+b,0765,Carlos Seixas,true
+t,2525,Dom Manuel I,48,true
+e,2005,Larga,100,true
