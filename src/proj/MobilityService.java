@@ -2,10 +2,12 @@ package proj;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -33,6 +35,7 @@ public class MobilityService {
         System.out.println();
 
         ArrayList<Rental> rentals = new ArrayList<Rental>();
+        readRentals(rentalsObjFile, rentals);
         addRentals(rentals, users, vehicles);
         listRentals(rentals);
         writeRentals(rentalsObjFile, rentals);
@@ -115,8 +118,9 @@ public class MobilityService {
         double total = 0;
         for(int i = 0; i < rentals.size(); i++){
             System.out.println(rentals.get(i));
-           // total +=  
+           // total +=  rentals.get(i).getPrice();
         }
+        System.out.println("Total: " + total);
     }
 
     private static void readUsers(String path, ArrayList<User> dest){
@@ -220,6 +224,27 @@ public class MobilityService {
             } catch (IOException e) {
                 System.out.println("file reading error");
             }
+        }
+    }
+
+    private static void readRentals(String path, ArrayList<Rental> dest){
+        File f = new File(path);
+        
+        try {
+            FileInputStream fis = new FileInputStream(f);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            Object obj = ois.readObject();
+            ArrayList<?> raw = (ArrayList<?>) obj;
+            for(int i = 0; i < raw.size(); i++){
+                dest.add((Rental)raw.get(i));
+            }
+            ois.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("File opening error");
+        }  catch (IOException e) {
+            System.out.println("File reading error");
+        } catch (ClassNotFoundException e){
+            System.out.println("Object conversion error");
         }
     }
 
