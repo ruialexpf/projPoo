@@ -230,7 +230,8 @@ public class MobilityService {
     private static void readRentals(String path, ArrayList<Rental> dest){
         File f = new File(path);
         
-        try {
+        if(f.exists() && f.isFile() && f.length()>0){
+            try {
             FileInputStream fis = new FileInputStream(f);
             ObjectInputStream ois = new ObjectInputStream(fis);
             Object obj = ois.readObject();
@@ -239,12 +240,13 @@ public class MobilityService {
                 dest.add((Rental)raw.get(i));
             }
             ois.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("File opening error");
-        }  catch (IOException e) {
-            System.out.println("File reading error");
-        } catch (ClassNotFoundException e){
-            System.out.println("Object conversion error");
+            } catch (FileNotFoundException e) {
+                System.out.println("File opening error");
+            }  catch (IOException e) {
+                System.out.println("File reading error");
+            } catch (ClassNotFoundException e){
+                System.out.println("Object conversion error");
+            }
         }
     }
 
